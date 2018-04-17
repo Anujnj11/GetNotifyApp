@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">GetNotify!</string>
+    <string name="Whatweoffer">Receive <b>Android notifications in your browser</b>. \nInstead of checking notifications directly on your phone,
+        you can check them on your desktop while surfing the web. \n\n1.Get started by <b>Singing up</b>.\n\n2.Install <b>Notify!</b> the companion browser extensions.</string>
+    <string name="NotificationTex">Enable Notify! in the settings and return to the setup.</string>
+</resources>
