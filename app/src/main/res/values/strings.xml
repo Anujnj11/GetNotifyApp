@@ -3,4 +3,11 @@
     <string name="Whatweoffer">Receive <b>Android notifications in your browser</b>. \nInstead of checking notifications directly on your phone,
         you can check them on your desktop while surfing the web. \n\n1.Get started by <b>Singing up</b>.\n\n2.Install <b>Notify!</b> the companion browser extensions.</string>
     <string name="NotificationTex">Enable Notify! in the settings and return to the setup.</string>
+    <string name="SetupSteps">Pair your computer by installing chrome companion browser extension. \n
+    1.Search GetNotify! in chrome extesnion.\n
+        2.Login with <b>Username</b> and <b>OTP</b>.\n
+        3.Thats all once your phone get notification by <i>SMS</i> or <i>Call</i> will post notification to chrome.
+    </string>
+
+
 </resources>

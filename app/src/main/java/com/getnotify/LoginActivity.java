@@ -31,7 +31,8 @@ import java.util.Random;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -42,16 +43,23 @@ public class LoginActivity extends AppCompatActivity {
     private UserAESTokenReq ObjUserAESTokenReq = null;
     private Dialog myDialog;
     private  static String PKGMESSAGING = null,PKGCall=null;
-    FloatingActionButton fab;
-
+//    FloatingActionButton fab;
+    ImageView fab;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Exception Log
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_login);
+
+        //fORCEcOLOSE();
         myDialog = new Dialog(this);
         GetDefaultSMS();
         GetDefaultDialer(this);
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+//        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (ImageView) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +85,12 @@ public class LoginActivity extends AppCompatActivity {
 //            });
 //        }
     }
+
+//    private void fORCEcOLOSE() {
+//        List<String> packageNames =null ;
+////                = new ArrayList<>();
+//        packageNames.add("dsdsfd");
+//    }
 
 
     private void showDiag() {
@@ -279,6 +293,7 @@ public class LoginActivity extends AppCompatActivity {
         myDialog.setContentView(R.layout.avloadingindicatorview);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+        myDialog.setCancelable(false);
     }
 
     public void NavigatetoHome()

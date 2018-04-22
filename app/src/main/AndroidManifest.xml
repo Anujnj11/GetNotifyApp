@@ -14,32 +14,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<activity android:name=".HomeActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--android:theme="@style/AppTheme.Dark"-->
-        <activity android:name=".LoginActivity" android:theme="@style/AppTheme">
+        <!-- <activity android:name=".HomeActivity"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <!-- android:theme="@style/AppTheme.Dark" -->
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!--<service android:name="NotificationService"-->
-            <!--android:label="Notify!"-->
-            <!--android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>-->
-         <service
-         android:name="com.getnotify.NotificationService"
-         android:label="Notify!"
-         android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-         <intent-filter>
-         <action android:name="android.service.notification.NotificationListenerService" />
-         </intent-filter>
-         </service>
+        <!-- <service android:name="NotificationService" -->
+        <!-- android:label="Notify!" -->
+        <!-- android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/> -->
+        <service
+            android:name=".NotificationService"
+            android:label="Notify!"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
         <!-- <receiver android:name=".IncomingCall"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.PHONE_STATE" /> -->
@@ -51,8 +56,16 @@
         <!-- </intent-filter> -->
         <!-- </receiver> -->
 
-        <!--<activity android:name=".LoginActivity" android:theme="@style/AppTheme.Dark"/>-->
-        <activity android:name=".HomeActivity" android:theme="@style/AppTheme"/>
+
+        <!-- <activity android:name=".LoginActivity" android:theme="@style/AppTheme.Dark"/> -->
+        <activity
+            android:name=".HomeActivity"
+            android:theme="@style/AppTheme" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="29c861c4177a231582b6d13a589099c022e287cb"
+            />
     </application>
 
 </manifest>

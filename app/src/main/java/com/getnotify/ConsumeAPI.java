@@ -54,6 +54,10 @@ public class ConsumeAPI {
         @Headers({"Content-Type:application/json"})
         @POST("/api/getencrptoken")
         public Call<GetEncrptokenRes> GetAESToken(@Body UserAESTokenReq ObjUserAESTokenReq);
+
+        @Headers({"Content-Type:application/json"})
+        @POST("/api/postExceptionDetails")
+        public Call PostException(@Body String Exception);
     }
 }
 

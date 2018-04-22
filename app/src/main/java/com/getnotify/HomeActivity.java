@@ -2,6 +2,7 @@ package com.getnotify;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +29,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class HomeActivity extends AppCompatActivity {
     List<ApplicationInfo> installedApps = new ArrayList<ApplicationInfo>();
@@ -35,13 +40,16 @@ public class HomeActivity extends AppCompatActivity {
     TextView Objpassword = null;
     CardView ObjRequiredAccess,ObjHaveAccess;
     Button ObjVisitSetting;
+    private Dialog RequiredAccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activityhome);
 
+        RequiredAccess = new Dialog(this);
         Objpassword = (TextView)findViewById(R.id.password);
-        ObjRequiredAccess = (CardView)findViewById(R.id.RequiredAccess);
+//        ObjRequiredAccess = (CardView)findViewById(R.id.RequiredAccess);
         ObjHaveAccess = (CardView)findViewById(R.id.HaveAccess);
 
         ObjVisitSetting = (Button)findViewById(R.id.VisitSetting);
@@ -77,14 +85,14 @@ public class HomeActivity extends AppCompatActivity {
 //            Log.i("ApplicationInfo","jeee");
             //service is enabled do something
 
-
+            RequiredAccess.dismiss();
 
 //            RegisterService();
-            ObjRequiredAccess.setVisibility(View.GONE);
+//            ObjRequiredAccess.setVisibility(View.GONE);
 
         } else {
 //            ObjHaveAccess.setVisibility(View.INVISIBLE);
-
+            ShowRequiredAccess();
             ObjHaveAccess.setVisibility(View.GONE);
 //            //service is not enabled try to enabled by calling...
 //            getApplicationContext().startActivity(new Intent(
@@ -99,15 +107,16 @@ public class HomeActivity extends AppCompatActivity {
         if(hasNotificationAccess()){
 //            ObjRequiredAccess.setVisibility(View.INVISIBLE);
 //            ObjHaveAccess.setVisibility(View.VISIBLE);
-            ObjRequiredAccess.setVisibility(View.GONE);
+//            ObjRequiredAccess.setVisibility(View.GONE);
+            RequiredAccess.dismiss();
             ObjHaveAccess.setVisibility(View.VISIBLE);
         }
         else {
 //            ObjHaveAccess.setVisibility(View.INVISIBLE);
 //            ObjRequiredAccess.setVisibility(View.VISIBLE);
-
+            ShowRequiredAccess();
             ObjHaveAccess.setVisibility(View.GONE);
-            ObjRequiredAccess.setVisibility(View.VISIBLE);
+//            ObjRequiredAccess.setVisibility(View.VISIBLE);
         }
         super.onResume();
     }
@@ -119,6 +128,13 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
         }
+    }
+
+    public  void ShowRequiredAccess(){
+        RequiredAccess.setContentView(R.layout.requiredaccesspartial);
+        RequiredAccess.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        RequiredAccess.show();
+        RequiredAccess.setCancelable(false);
     }
 
 
@@ -211,4 +227,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
