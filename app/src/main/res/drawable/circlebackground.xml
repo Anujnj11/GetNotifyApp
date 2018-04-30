@@ -1,11 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#fff" />
+    <corners android:radius="10dp" />
+</shape>
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<shape-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--android:shape="oval">-->
-    <!--<solid android:color="@color/twitter" />-->
+    <!--<stroke android:color="@color/twitter" />-->
 <!--</shape>-->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="@color/iron" />
-    <corners android:radius="5dp" />
-</shape>
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:shape="oval">-->
+    <!--<solid android:color="@color/iron" />-->
+    <!--<corners android:radius="5dp" />-->
+<!--</shape>-->

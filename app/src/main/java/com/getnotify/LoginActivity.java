@@ -11,17 +11,25 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.provider.Settings;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,30 +51,42 @@ public class LoginActivity extends AppCompatActivity {
     private UserAESTokenReq ObjUserAESTokenReq = null;
     private Dialog myDialog;
     private  static String PKGMESSAGING = null,PKGCall=null;
-//    FloatingActionButton fab;
-    ImageView fab;
+    FloatingActionButton fab;
+//    ImageView fab;
+//      ImageButton fab;
+
+    CoordinatorLayout coordinatorLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Exception Log
         Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_login);
 
+        setContentView(R.layout.activity_login);
+//        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        PlayGifView pGif = (PlayGifView) findViewById(R.id.viewGif);
+        pGif.setImageResource(R.drawable.pushnotifications);
         //fORCEcOLOSE();
         myDialog = new Dialog(this);
         GetDefaultSMS();
         GetDefaultDialer(this);
-//        fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab = (ImageView) findViewById(R.id.fab);
+        fab = (FloatingActionButton)findViewById(R.id.fab);
+//        fab = (ImageButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                showDiag();
+                if(isOnline()) {
+                    showDiag();
+                }
+                else{
+                    ShowSnackBar();
+                }
             }
         });
+
+
 //        //If UserIs Logged in Navigate to home
 //        if(Password != null && email !=null)
 //        {
@@ -91,6 +111,34 @@ public class LoginActivity extends AppCompatActivity {
 ////                = new ArrayList<>();
 //        packageNames.add("dsdsfd");
 //    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public  void ShowSnackBar(){
+//        Snackbar snackbar = Snackbar
+//                .make(coordinatorLayout, "No internet connection", Snackbar.LENGTH_LONG);
+//        View sbView = snackbar.getView();
+//        sbView.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark));
+//        snackbar.show();
+
+        Snackbar snack = Snackbar.make(findViewById(android.R.id.content), "No internet connection", Snackbar.LENGTH_LONG);
+        View view = snack.getView();
+        TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(ContextCompat.getColor(LoginActivity.this, R.color.white));
+        view.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        } else {
+            tv.setGravity(Gravity.CENTER_HORIZONTAL);
+        }
+        snack.show();
+    }
+
 
 
     private void showDiag() {
@@ -212,7 +260,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(true);
     }
 
@@ -301,6 +349,7 @@ public class LoginActivity extends AppCompatActivity {
         //Navigate to home with password.
         Intent objHomeAc = new Intent(getApplicationContext(),HomeActivity.class);
         objHomeAc.putExtra("Password",Password);
+        objHomeAc.putExtra("AESToken",AESToken);
         startActivity(objHomeAc);
     }
 

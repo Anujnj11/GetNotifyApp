@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:scrollbars="vertical">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".HomeActivity">
 
         <!--<android.support.v7.widget.CardView-->
@@ -116,10 +118,10 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="3dp"
             android:visibility="visible"
             app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,11 +132,12 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
-                    android:src="@mipmap/checked"
+                    android:src="@mipmap/counting"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -143,13 +146,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="3dp"
+                    android:text="Counts"
                     android:gravity="center"
-                    android:text="Notification Access"
-                    android:textAlignment="center"
+                    android:paddingLeft="85dp"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/aluminum"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlCompat" />
+
+
+                <TextView
+                    android:id="@+id/CountPosted"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_marginStart="200dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/aluminum"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
@@ -158,11 +180,11 @@
             android:id="@+id/OTP"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="3dp"
             android:layout_marginTop="20dp"
             android:visibility="visible"
             app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/HaveAccess">
 
@@ -237,9 +259,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:padding="10dp"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="3dp"
             app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/OTP">
 
@@ -293,8 +315,85 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
+        <android.support.v7.widget.CardView
+            android:id="@+id/howwework"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/StepNeedToFollow">
 
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <ImageView
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/electricity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/BuzzHead"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:text="Buzz Me!"
+                    android:textAlignment="center"
+                    android:textColor="@color/aluminum"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/iron"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/BuzzHead" />
+
+                <Button
+                    android:id="@+id/BuzzMe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/white"
+                    android:elegantTextHeight="false"
+                    android:freezesText="false"
+                    android:padding="10dp"
+                    android:onClick="BuzzMe"
+                    android:text="Create a test notification"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/aluminum"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view3" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_home_footer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/StepNeedToFollow" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

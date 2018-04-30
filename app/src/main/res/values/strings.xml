@@ -8,6 +8,18 @@
         2.Login with <b>Username</b> and <b>OTP</b>.\n
         3.Thats all once your phone get notification by <i>SMS</i> or <i>Call</i> will post notification to chrome.
     </string>
+    <string name="newOffer">Instead of checking notifications directly on your phone,
+        you can check them on your desktop while surfing the web.\nLets get started</string>
+    <!-- TODO - add your ad unit Ids -->
+    <!-- AdMob ad unit IDs -->
+    <string name="admob_app_id">ca-app-pub-6320498960428594~3259164600</string>
+    <string name="banner_home_footer">ca-app-pub-6320498960428594/7553632839</string>
 
+
+    <!--TestID-->
+    <!--<string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>-->
+    <!--<string name="banner_home_footer">ca-app-pub-3940256099942544/6300978111</string>-->
+    <string name="interstitial_full_screen">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
+    <string name="rewarded_video">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
 
 </resources>

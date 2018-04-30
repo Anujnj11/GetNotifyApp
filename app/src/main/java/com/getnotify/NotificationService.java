@@ -246,7 +246,7 @@ public class NotificationService extends NotificationListenerService {
             text = extras.getCharSequence("android.text").toString();
         }
 
-        if( !text.equalsIgnoreCase("Incoming call") && !text.equalsIgnoreCase("Missedcall") && !text.contains(",")){
+        if( !text.equalsIgnoreCase("Incoming call") && !text.equalsIgnoreCase("Missedcall")){
             ObjUserDetails.setSMS(true);
             ObjUserDetails.setCallLog(title);
             ObjUserDetails.setCall(false);
