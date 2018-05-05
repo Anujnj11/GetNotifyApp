@@ -33,7 +33,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="120dp"
         android:foregroundGravity="center"
-        android:src="@mipmap/bugicon"
+        android:src="@mipmap/synchronization"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

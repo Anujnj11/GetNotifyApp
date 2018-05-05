@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class NotificationService extends NotificationListenerService {
@@ -21,7 +22,8 @@ public class NotificationService extends NotificationListenerService {
     private  static String AESToken = null;
     private  static String MESSAGING = null;
 //    private static final String DIALER = "com.android.dialer";
-    private static String DIALER = null;
+//    private static String DIALER = null;
+    private static ArrayList<String> DIALER = null;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -104,7 +106,8 @@ public class NotificationService extends NotificationListenerService {
             Password = intent.getStringExtra("password");
             AESToken = intent.getStringExtra("AESToken");
             MESSAGING = intent.getStringExtra("MESSAGING");
-            DIALER =  intent.getStringExtra("CALL");
+//            DIALER =  intent.getStringExtra("CALL");
+            DIALER =  intent.getStringArrayListExtra("CALL");
         }
         super.onStartCommand(intent, flags, startId);
         // NOTE: We return STICKY to prevent the automatic service termination
@@ -195,10 +198,12 @@ public class NotificationService extends NotificationListenerService {
 
     private int matchNotificationCode(StatusBarNotification sbn) {
         String packageName = sbn.getPackageName();
-        if (packageName.equals(DIALER)
-                || packageName.equals(DIALER)) {
+//        if (packageName.equals(DIALER)
+//                || packageName.equals(DIALER)) {
+//            return (InterceptedNotificationCode.DIALER);
+        if (DIALER !=null && DIALER.contains(packageName)) {
             return (InterceptedNotificationCode.DIALER);
-        } else if (packageName.equals(MESSAGING)) {
+        } else if (MESSAGING !=null && packageName.equals(MESSAGING)) {
             return (InterceptedNotificationCode.MESSAGING);
         }
 //        else if(packageName.equals(ApplicationPackageNames.WHATSAPP_PACK_NAME)){

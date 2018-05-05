@@ -28,7 +28,7 @@
                 android:layout_height="29dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:src="@mipmap/error"
+                android:src="@mipmap/exclamationmark"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

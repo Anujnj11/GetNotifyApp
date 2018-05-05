@@ -37,7 +37,6 @@ import retrofit2.Response;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import io.fabric.sdk.android.Fabric;
@@ -47,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     private List<ApplicationInfo> appsjjj;
     private GetNotifyBroadcastReceiver ObjGetNotifyBroadcastReceiver;
     Intent objHomeAc = null;
-    TextView Objpassword = null, ObjCountPosted = null;
+    TextView Objpassword = null, ObjCountPosted = null ,Objusername=null;
     CardView ObjRequiredAccess,ObjHaveAccess;
     int Count = 0;
     Button ObjVisitSetting,ObjBuzzMe;
@@ -62,6 +61,8 @@ public class HomeActivity extends AppCompatActivity {
 
         RequiredAccess = new Dialog(this);
         Objpassword = (TextView)findViewById(R.id.password);
+        Objusername = (TextView)findViewById(R.id.username);
+
         ObjCountPosted = (TextView)findViewById(R.id.CountPosted);
 //        ObjRequiredAccess = (CardView)findViewById(R.id.RequiredAccess);
         ObjHaveAccess = (CardView)findViewById(R.id.HaveAccess);
@@ -71,7 +72,9 @@ public class HomeActivity extends AppCompatActivity {
         objHomeAc = getIntent();
         String Password = objHomeAc.getExtras().getString("Password");
         AESToken = objHomeAc.getExtras().getString("AESToken");
+        String Username = objHomeAc.getExtras().getString("Username");
         Objpassword.setText(Password);
+        Objusername.setText(Username);
 //        if(ContextCompat.checkSelfPermission(HomeActivity.this,
 //                Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED){
 //
@@ -88,26 +91,8 @@ public class HomeActivity extends AppCompatActivity {
         Log.i("IsServiceRunning", (String.valueOf(isMyServiceRunning(NotificationService.class))));
         InitiADS();
         if (hasNotificationAccess()) {
-//            if(Build.VERSION.SDK_INT >= 22 ){
-//                startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
-//
-//            }
-//            else{
-//                startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
-//            }
-//            PackageManager pm = getPackageManager();
-//            List<ApplicationInfo> apps = pm.getInstalledApplications(0);
-//            List<ApplicationInfo> appsjjj=   getInstalledApps(apps);
-//            Log.i("ApplicationInfo","jeee");
-            //service is enabled do something
-
             RequiredAccess.dismiss();
-
-//            RegisterService();
-//            ObjRequiredAccess.setVisibility(View.GONE);
-
         } else {
-//            ObjHaveAccess.setVisibility(View.INVISIBLE);
             ShowRequiredAccess();
             ObjHaveAccess.setVisibility(View.GONE);
 //            //service is not enabled try to enabled by calling...
@@ -123,9 +108,9 @@ public class HomeActivity extends AppCompatActivity {
 //        mAdView.setAdUnitId(getString(R.string.banner_home_footer));
 
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                // Check the LogCat to get your test device ID
-                .addTestDevice("97C729DB642AD3645847E56DFEFBC238")
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                // Check the LogCat to get your test device ID
+//                .addTestDevice("97C729DB642AD3645847E56DFEFBC238")
                 .build();
         mAdView.loadAd(adRequest);
         mAdView.setAdListener(new AdListener() {

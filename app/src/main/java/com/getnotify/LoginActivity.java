@@ -50,7 +50,9 @@ public class LoginActivity extends AppCompatActivity {
     private String Password=null,email=null,AESToken = null;
     private UserAESTokenReq ObjUserAESTokenReq = null;
     private Dialog myDialog;
-    private  static String PKGMESSAGING = null,PKGCall=null;
+    private  static String PKGMESSAGING = null;
+//    private  static String PKGCall=null;
+    ArrayList<String> PKGCall = null;
     FloatingActionButton fab;
 //    ImageView fab;
 //      ImageButton fab;
@@ -234,7 +236,7 @@ public class LoginActivity extends AppCompatActivity {
         try
         {
             ObjUserAESTokenReq = new UserAESTokenReq();
-            byte[] data = email.getBytes("UTF-8");
+//            byte[] data = email.getBytes("UTF-8");
 //            ObjUserAESTokenReq.setUsername(Base64.encodeToString(data, Base64.DEFAULT));
             ObjUserAESTokenReq.setUsername(email);
             onLoginSuccess();
@@ -303,7 +305,9 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("password",Password);
                     intent.putExtra("AESToken",AESToken);
                     intent.putExtra("MESSAGING",PKGMESSAGING);
-                    intent.putExtra("CALL",PKGCall);
+//                    intent.putExtra("CALL",PKGCall);
+                    intent.putStringArrayListExtra("CALL",PKGCall);
+
                     //starting service
                     startService(intent);
 //                    progressDialog.dismiss();
@@ -350,6 +354,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent objHomeAc = new Intent(getApplicationContext(),HomeActivity.class);
         objHomeAc.putExtra("Password",Password);
         objHomeAc.putExtra("AESToken",AESToken);
+        objHomeAc.putExtra("Username",email);
         startActivity(objHomeAc);
     }
 
@@ -364,8 +369,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void GetDefaultDialer(Context context){
-        try{
-        List<String> packageNames = new ArrayList<>();
+        try
+        {
+            PKGCall = new ArrayList<String>();
         // Declare action which target application listen to initiate phone call
         final Intent intent = new Intent();
         intent.setAction(Intent.ACTION_DIAL);
@@ -374,9 +380,11 @@ public class LoginActivity extends AppCompatActivity {
         // Read package name of all those applications
         for(ResolveInfo resolveInfo : resolveInfos){
             ActivityInfo activityInfo = resolveInfo.activityInfo;
-            packageNames.add(activityInfo.applicationInfo.packageName);
+            PKGCall.add(activityInfo.applicationInfo.packageName);
         }
-        PKGCall = packageNames.size() > 0 ? packageNames.get(0) : null;
+//        PKGCall = packageNames.size() > 0 ? packageNames.get(0) : null;
+//        PKGCall  =  packageNames;
+
     }
     catch (Exception e){
     }
