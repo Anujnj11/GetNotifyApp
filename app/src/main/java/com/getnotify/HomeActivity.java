@@ -332,7 +332,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public  void ShowSnackBar(){
-        Snackbar snack = Snackbar.make(findViewById(android.R.id.content), "Done", Snackbar.LENGTH_LONG);
+        Snackbar snack = Snackbar.make(findViewById(android.R.id.content), "You are awesome!!", Snackbar.LENGTH_LONG);
         View view = snack.getView();
         TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
         tv.setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.white));

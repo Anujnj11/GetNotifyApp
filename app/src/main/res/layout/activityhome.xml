@@ -8,18 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_home_footer"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintHorizontal_bias="0.5"
-        ads:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -360,7 +348,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:text="lkjlkjlkjlkjlkjlkjlkjlk"
                 android:textColor="@color/black"
                 android:visibility="invisible"
@@ -370,4 +358,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/howwework" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_home_footer"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="@+id/ContL"
+        ads:layout_constraintTop_toTopOf="@+id/ContL"
+        ads:layout_constraintVertical_bias="0.98"
+        app:layout_constraintBottom_toBottomOf="@+id/ContL" />
 </android.support.constraint.ConstraintLayout>
