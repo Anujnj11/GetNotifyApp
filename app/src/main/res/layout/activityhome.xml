@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ContL"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--<android.support.constraint.ConstraintLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/ContL"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -359,15 +359,15 @@
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_home_footer"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="@+id/ContL"
-        ads:layout_constraintTop_toTopOf="@+id/ContL"
-        ads:layout_constraintVertical_bias="0.98"
-        app:layout_constraintBottom_toBottomOf="@+id/ContL" />
-</android.support.constraint.ConstraintLayout>
+    <!--<com.google.android.gms.ads.AdView-->
+        <!--android:id="@+id/adView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--ads:adSize="BANNER"-->
+        <!--ads:adUnitId="@string/banner_home_footer"-->
+        <!--ads:layout_constraintEnd_toEndOf="parent"-->
+        <!--ads:layout_constraintStart_toStartOf="@+id/ContL"-->
+        <!--ads:layout_constraintTop_toTopOf="@+id/ContL"-->
+        <!--ads:layout_constraintVertical_bias="0.98"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/ContL" />-->
+<!--</android.support.constraint.ConstraintLayout>-->

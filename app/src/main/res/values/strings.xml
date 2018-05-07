@@ -4,9 +4,9 @@
         you can check them on your desktop while surfing the web. \n\n1.Get started by <b>Singing up</b>.\n\n2.Install <b>Notify Me!</b> the companion browser extensions.</string>
     <string name="NotificationTex">Enable Notify Me! in the settings and return to the setup.</string>
     <string name="SetupSteps">Pair your computer by installing chrome companion browser extension. \n
-    1.Search Notify Me! in chrome extesnion.\n
-        2.Login with <b>Username</b> and <b>OTP</b>.\n
-        3.Thats all once your phone get notification by <i>SMS</i> or <i>Call</i> will post notification to chrome.
+        1.Search Notify Me! in chrome extesnion.\n
+        2.Login with one time <b>Username</b> and <b>Password</b>.\n
+        3.That\'s all, once your phone recieves any <i>SMS</i> or <i>Call</i> \n \t \t Notify Me! will post this as notification to chrome.
     </string>
     <string name="newOffer">Instead of checking notifications directly on your phone,
         you can check them on your desktop while surfing the web.\nLets get started</string>

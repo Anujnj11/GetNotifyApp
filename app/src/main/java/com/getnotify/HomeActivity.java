@@ -35,9 +35,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
     int Count = 0;
     Button ObjVisitSetting,ObjBuzzMe;
     private Dialog RequiredAccess;
-    private AdView mAdView;
+//    private AdView mAdView;
     private  String AESToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
 //
 //        }
         Log.i("IsServiceRunning", (String.valueOf(isMyServiceRunning(NotificationService.class))));
-        InitiADS();
+//        InitiADS();
         if (hasNotificationAccess()) {
             RequiredAccess.dismiss();
         } else {
@@ -102,59 +102,59 @@ public class HomeActivity extends AppCompatActivity {
         RegisterService();
     }
 
-    private  void InitiADS(){
-        mAdView = (AdView) findViewById(R.id.adView);
-//        mAdView.setAdSize(AdSize.BANNER);
-//        mAdView.setAdUnitId(getString(R.string.banner_home_footer));
-
-        AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                // Check the LogCat to get your test device ID
-//                .addTestDevice("97C729DB642AD3645847E56DFEFBC238")
-                .build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-//                Toast.makeText(getApplicationContext(), "Ad is loaded!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdClosed() {
-//                Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                Log.i("onAdFailedToLoad", (String.valueOf(errorCode)));
-//                Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-//                Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-            }
-        });
-
-    }
+//    private  void InitiADS(){
+//        mAdView = (AdView) findViewById(R.id.adView);
+////        mAdView.setAdSize(AdSize.BANNER);
+////        mAdView.setAdUnitId(getString(R.string.banner_home_footer));
+//
+//        AdRequest adRequest = new AdRequest.Builder()
+////                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+////                // Check the LogCat to get your test device ID
+////                .addTestDevice("97C729DB642AD3645847E56DFEFBC238")
+//                .build();
+//        mAdView.loadAd(adRequest);
+//        mAdView.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+////                Toast.makeText(getApplicationContext(), "Ad is loaded!", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onAdClosed() {
+////                Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(int errorCode) {
+//                Log.i("onAdFailedToLoad", (String.valueOf(errorCode)));
+////                Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onAdLeftApplication() {
+////                Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onAdOpened() {
+//                super.onAdOpened();
+//            }
+//        });
+//
+//    }
 
     @Override
     public void onPause() {
-        if (mAdView != null) {
-            mAdView.pause();
-        }
+//        if (mAdView != null) {
+//            mAdView.pause();
+//        }
         super.onPause();
     }
     @Override
     protected void onResume() {
-        if (mAdView != null) {
-            mAdView.resume();
-        }
+//        if (mAdView != null) {
+//            mAdView.resume();
+//        }
         if(hasNotificationAccess()){
 //            ObjRequiredAccess.setVisibility(View.INVISIBLE);
 //            ObjHaveAccess.setVisibility(View.VISIBLE);
@@ -174,9 +174,9 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        if (mAdView != null) {
-            mAdView.destroy();
-        }
+//        if (mAdView != null) {
+//            mAdView.destroy();
+//        }
         super.onDestroy();
     }
 
