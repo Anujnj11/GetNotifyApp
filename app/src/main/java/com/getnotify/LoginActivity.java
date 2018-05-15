@@ -70,6 +70,12 @@ public class LoginActivity extends AppCompatActivity {
         PlayGifView pGif = (PlayGifView) findViewById(R.id.viewGif);
         pGif.setImageResource(R.drawable.pushnotifications);
         //fORCEcOLOSE();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            pGif.getLayoutParams().height = 0;
+            pGif.getLayoutParams().width = 0;
+            pGif.setVisibility(View.GONE);
+            pGif.requestLayout();
+        }
         myDialog = new Dialog(this);
         GetDefaultSMS();
         GetDefaultDialer(this);
@@ -198,27 +204,56 @@ public class LoginActivity extends AppCompatActivity {
         int cy = (int) (fab.getY())+ fab.getHeight() + 56;
         if(b)
         {
-            Animator revealAnimator = ViewAnimationUtils.createCircularReveal(view, cx,cy, 0, endRadius);
-            view.setVisibility(View.VISIBLE);
-            revealAnimator.setDuration(700);
-            revealAnimator.start();
+//            Animator revealAnimator = ViewAnimationUtils.createCircularReveal(view, cx,cy, 0, endRadius);
+//            view.setVisibility(View.VISIBLE);
+//            revealAnimator.setDuration(700);
+//            revealAnimator.start();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                Animator revealAnimator = ViewAnimationUtils.createCircularReveal(view, cx,cy, 0, endRadius);
+                view.setVisibility(View.VISIBLE);
+                revealAnimator.setDuration(700);
+                revealAnimator.start();
+            } else {
+                view.setVisibility(View.VISIBLE);
+            }
 
         } else {
 
-            Animator anim =
-                    ViewAnimationUtils.createCircularReveal(view, cx, cy, endRadius, 0);
+//            Animator anim =
+//                    ViewAnimationUtils.createCircularReveal(view, cx, cy, endRadius, 0);
+//
+//            anim.addListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    super.onAnimationEnd(animation);
+//                    dialog.dismiss();
+//                    view.setVisibility(View.INVISIBLE);
+//
+//                }
+//            });
+//            anim.setDuration(700);
+//            anim.start();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Animator anim =
+                        ViewAnimationUtils.createCircularReveal(view, cx, cy, endRadius, 0);
 
-            anim.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    dialog.dismiss();
-                    view.setVisibility(View.INVISIBLE);
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        dialog.dismiss();
+                        view.setVisibility(View.INVISIBLE);
 
-                }
-            });
-            anim.setDuration(700);
-            anim.start();
+                    }
+                });
+                anim.setDuration(700);
+                anim.start();
+            }
+            else
+            {
+                dialog.dismiss();
+                view.setVisibility(View.INVISIBLE);
+            }
         }
 
     }

@@ -224,7 +224,8 @@ public class NotificationService extends NotificationListenerService {
         if (extras.getCharSequence("android.text") != null) {
             text = extras.getCharSequence("android.text").toString();
         }
-        if( title!=null && ValidateMobile(title) && text !=null && text.equalsIgnoreCase("Incoming call") && !text.equalsIgnoreCase("Dialing")){
+//        if( title!=null && ValidateMobile(title) && text !=null && text.equalsIgnoreCase("Incoming call") && !text.equalsIgnoreCase("Dialing")){
+        if(text !=null && text.contains("Incoming") && title !=null){
             ObjUserDetails.setSMS(false);
             ObjUserDetails.setCallLog(title);
             ObjUserDetails.setCall(true);
@@ -233,7 +234,7 @@ public class NotificationService extends NotificationListenerService {
 //            ObjUserDetails.setMacId("a");
 
             ObjUserDetails.setAESToken(AESToken);
-            ObjUserDetails.setMessage("");
+            ObjUserDetails.setMessage(text);
             Intent intent = new Intent("com.getnotify");
             intent.putExtra("GetnotifyData", ObjUserDetails);
             sendBroadcast(intent);
@@ -251,7 +252,7 @@ public class NotificationService extends NotificationListenerService {
             text = extras.getCharSequence("android.text").toString();
         }
 
-        if( !text.equalsIgnoreCase("Incoming call") && !text.equalsIgnoreCase("Missedcall")){
+        if(text !=null && title !=null){
             ObjUserDetails.setSMS(true);
             ObjUserDetails.setCallLog(title);
             ObjUserDetails.setCall(false);

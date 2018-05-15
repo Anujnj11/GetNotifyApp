@@ -24,10 +24,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.getnotify"
-        minSdkVersion 22
+        minSdkVersion 19
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.003"
+        versionCode 6
+        versionName "1.005"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
