@@ -335,16 +335,16 @@ public class LoginActivity extends AppCompatActivity {
                     GetEncrptokenRes ObjLogDetailResponse = response.body();
                     Log.i("AESToken : ", ObjLogDetailResponse.getAESToken());
                     AESToken = ObjLogDetailResponse.getAESToken();
-                    Intent intent = new Intent(getApplicationContext(), NotificationService.class);
-                    intent.putExtra("email", email);
-                    intent.putExtra("password",Password);
-                    intent.putExtra("AESToken",AESToken);
-                    intent.putExtra("MESSAGING",PKGMESSAGING);
-//                    intent.putExtra("CALL",PKGCall);
-                    intent.putStringArrayListExtra("CALL",PKGCall);
-
-                    //starting service
-                    startService(intent);
+//                    Intent intent = new Intent(getApplicationContext(), NotificationService.class);
+//                    intent.putExtra("email", email);
+//                    intent.putExtra("password",Password);
+//                    intent.putExtra("AESToken",AESToken);
+//                    intent.putExtra("MESSAGING",PKGMESSAGING);
+////                    intent.putExtra("CALL",PKGCall);
+//                    intent.putStringArrayListExtra("CALL",PKGCall);
+//
+//                    //starting service
+//                    startService(intent);
 //                    progressDialog.dismiss();
                     myDialog.dismiss();
                     NavigatetoHome();
