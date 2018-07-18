@@ -19,6 +19,7 @@ public class IncomingSms extends BroadcastReceiver {
         final Bundle bundle = intent.getExtras();
         try {
             if (bundle != null) {
+                UserDetails ObjUserDetails = new UserDetails();
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
                 String phoneNumber = "";
                 String message ="";
@@ -29,10 +30,10 @@ public class IncomingSms extends BroadcastReceiver {
                     message += currentMessage.getDisplayMessageBody();
 //                    Log.i("SmsReceiver", "senderNum: " + phoneNumber + "; message: " + message);
                 }
+                ObjUserDetails.setMobileNumber(phoneNumber);
                 String Name = Utility.GetContactName(context,phoneNumber);
                 if(!Name.isEmpty())
                     phoneNumber += " ( " + Name + " ) ";
-                UserDetails ObjUserDetails = new UserDetails();
                 ObjUserDetails.setSMS(true);
                 ObjUserDetails.setCallLog(phoneNumber);
                 ObjUserDetails.setCall(false);

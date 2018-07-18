@@ -24,14 +24,13 @@ public class IncomingCall extends BroadcastReceiver {
                 Bundle bundle = intent.getExtras();
 
                 if (newPhoneState != null && newPhoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                    UserDetails ObjUserDetails = new UserDetails();
                     //read the incoming call number
                     String phoneNumber = bundle.getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
-//                    Log.i("PHONE RECEIVER", "Telephone is now ringing " + phoneNumber);
+                    ObjUserDetails.setMobileNumber(phoneNumber);
                     String Name = Utility.GetContactName(context,phoneNumber);
                     if(!Name.isEmpty())
                         phoneNumber += " ( " + Name + " ) ";
-//                    Log.i("PHONE RECEIVER", "Telephone is now ringing " + phoneNumber);
-                    UserDetails ObjUserDetails = new UserDetails();
                     ObjUserDetails.setSMS(false);
                     ObjUserDetails.setCallLog(phoneNumber);
                     ObjUserDetails.setCall(true);

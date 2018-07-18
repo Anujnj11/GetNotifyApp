@@ -12,6 +12,15 @@ public class UserDetails implements Serializable {
     private Boolean IsSMS;
     private String Date;
     private String AESToken;
+    private String MobileNumber;
+
+    public String getMobileNumber() {
+        return MobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        MobileNumber = mobileNumber;
+    }
 
     public String getAESToken() {
         return AESToken;

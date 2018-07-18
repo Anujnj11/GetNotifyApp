@@ -26,8 +26,8 @@ android {
         applicationId "com.getnotify"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 6
-        versionName "1.005"
+        versionCode 8
+        versionName "1.007"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -57,4 +57,9 @@ dependencies {
         transitive = true;
     }
 //    implementation 'com.google.android.gms:play-services-ads:15.0.0'
+    implementation ('io.socket:socket.io-client:1.0.0'){
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+
 }

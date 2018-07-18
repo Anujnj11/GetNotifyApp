@@ -34,10 +34,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.socket.client.Socket;
+import io.socket.client.IO;
+import io.socket.emitter.Emitter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +50,9 @@ import com.crashlytics.android.Crashlytics;
 //import com.google.android.gms.ads.AdListener;
 //import com.google.android.gms.ads.AdRequest;
 //import com.google.android.gms.ads.AdView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -61,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     private Dialog RequiredAccess;
     //    private AdView mAdView;
     private String AESToken;
-
+    private Socket mSocket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
 
         GetPermission();
         registerReceiver(broadcastReceiver, new IntentFilter("NotifyBroadCast"));
+        InitializeSocket();
 //        Log.i("IsServiceRunning", (String.valueOf(isMyServiceRunning(NotificationService.class))));
 //        InitiADS();
 
@@ -180,7 +188,7 @@ public class HomeActivity extends AppCompatActivity {
                 ContextCompat.checkSelfPermission(HomeActivity.this,
                         Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(HomeActivity.this,
-                        Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {}
+                        Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {}
                         else
                     RequiredAccess.dismiss();
 
@@ -191,6 +199,14 @@ public class HomeActivity extends AppCompatActivity {
 //        if (mAdView != null) {
 //            mAdView.destroy();
 //        }
+        try
+        {
+        mSocket.disconnect();
+        }
+        catch (Exception er)
+        {
+
+        }
         super.onDestroy();
     }
 
@@ -238,9 +254,13 @@ public class HomeActivity extends AppCompatActivity {
        // sendSms();
     }
 
-    private void sendSms() {
-        SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage("09833038070", null, "TEST", null, null);
+    private void sendSms(String Mobile,String Message) {
+        try {
+            SmsManager sms = SmsManager.getDefault();
+            sms.sendTextMessage(Mobile, null, Message, null, null);
+        }catch (Exception e){
+
+        }
     }
 
 //    public void ShowRequiredAccess() {
@@ -367,9 +387,18 @@ public class HomeActivity extends AppCompatActivity {
 //                    Toast.makeText(this, "Permission Denied READ_SMS", Toast.LENGTH_LONG).show();
                 }
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission
+                        .RECEIVE_SMS) ==
+                        PackageManager.PERMISSION_GRANTED) {
+//                    Toast.makeText(this, "Permission Granted RECEIVE_SMS", Toast.LENGTH_LONG).show();
+                } else {
+                    PermissionCount++;
+                    ErrorMsg += "<b> ●  SMS Permission </b> helps us to inform you about incoming SMS.<br /><br />";
+//                    Toast.makeText(this, "Permission Denied RECEIVE_SMS", Toast.LENGTH_LONG).show();
+                }
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission
                         .READ_CONTACTS) ==
                         PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission Granted READ_CONTACTS", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this, "Permission Granted READ_CONTACTS", Toast.LENGTH_LONG).show();
                 } else {
 //                    PermissionCount++;
                     ErrorMsg += "<b> ●  Contact Permission </b> allow us to provide you contact name.<br />";
@@ -397,7 +426,9 @@ public class HomeActivity extends AppCompatActivity {
         ObjUserDetails.setDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new java.util
                 .Date()));
 //        Call<LogDetailResponse> objCallAPI = ConsumeAPI.postLog().postLogDetails(ObjUserDetails);
-        Call<LogDetailResponse> objCallAPI = ConsumeAPI.postLog().postAESLogDetails(ObjUserDetails);
+//        Call<LogDetailResponse> objCallAPI = ConsumeAPI.postLog().postAESLogDetails(ObjUserDetails);
+        Call<LogDetailResponse> objCallAPI = ConsumeAPI.postSocketLog().postSockectAESLogDetails(ObjUserDetails);
+
         objCallAPI.enqueue(new Callback<LogDetailResponse>() {
             @Override
             public void onResponse(Call<LogDetailResponse> call, Response<LogDetailResponse>
@@ -467,19 +498,19 @@ public class HomeActivity extends AppCompatActivity {
                 ContextCompat.checkSelfPermission(HomeActivity.this,
                         Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(HomeActivity.this,
-                        Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
+                        Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(HomeActivity.this,
                         Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this, Manifest
                     .permission.READ_PHONE_STATE)) {
                 ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest
                         .permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest
-                        .permission.READ_CONTACTS,
+                        .permission.READ_CONTACTS,Manifest.permission.RECEIVE_SMS,
                         Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE}, 1);
             } else {
                 ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest
                         .permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest
-                        .permission.READ_CONTACTS
+                        .permission.READ_CONTACTS,Manifest.permission.RECEIVE_SMS
                         , Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE}, 1);
             }
         } else {
@@ -487,4 +518,100 @@ public class HomeActivity extends AppCompatActivity {
 //            registerReceiver(broadcastReceiver, new IntentFilter("NotifyBroadCast"));
         }
     }
+
+
+    //Socket Code
+    public void InitializeSocket(){
+
+//        mSocket = app.getSocket();
+        try {
+//            mSocket = IO.socket("http://192.168.31.159:4555");
+            mSocket = IO.socket("https://socketnotifymeapi.herokuapp.com");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        mSocket.on(Socket.EVENT_CONNECT,onConnect);
+        mSocket.on(Socket.EVENT_DISCONNECT,onDisconnect);
+        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.on("chat message", onNewMessage);
+//        mSocket.on("incoming text", onComposeMessage);
+        mSocket.on("incoming text", SendMessage);
+        mSocket.on("lost message", LostMessage);
+        mSocket.on("RuThere", RuThere);
+        mSocket.connect();
+    }
+
+    private Emitter.Listener onConnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            if (!mSocket.connected()) return;
+            mSocket.emit("AESGroup",AESToken);
+            Log.i("connect", "connect");
+        }
+    };
+
+    //Keep active connection for android
+    private Emitter.Listener RuThere = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            if (!mSocket.connected()) return;
+            else {
+                mSocket.emit("ImAlive", AESToken);
+//                Log.i("ImAlive", "ImAlive");
+            }
+        }
+    };
+    private Emitter.Listener onDisconnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+//            mSocket.disconnect();
+            Log.i("onDisconnect", "onDisconnect");
+        }
+    };
+
+    private Emitter.Listener onConnectError = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            Log.i("onConnectError", "onConnectError");
+        }
+    };
+
+
+
+
+
+    private Emitter.Listener SendMessage = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            JSONObject data = (JSONObject) args[0];
+            try {
+                String message = data.getString("Message");
+                String MobileNumber = data.getString("MobileNumber");
+                String Token = data.getString("AESToken");
+                if(Token.equalsIgnoreCase(AESToken))
+                    sendSms(MobileNumber,message);
+            } catch (JSONException e) {
+                return;
+            }
+            Log.i("onNewMessage", "onNewMessage"  + data);
+        }
+    };
+    private Emitter.Listener LostMessage = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            JSONObject data = (JSONObject) args[0];
+            try
+            {
+                String message = data.getString("Message");
+                String MobileNumber = data.getString("MobileNumber");
+                String Token = data.getString("AESToken");
+                if(Token.equalsIgnoreCase(AESToken))
+                    sendSms(MobileNumber,message);
+            } catch (JSONException e) {
+                return;
+            }
+            Log.i("LostMessage :", "LostMessage : "  + data);
+        }
+    };
 }
